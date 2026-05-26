@@ -1,0 +1,43 @@
+[project]
+name = "fastapi-zero"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.136.3",
+    "uvicorn>=0.48.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.14",
+    "taskipy>=1.14.1",
+]
+
+[tool.ruff]
+extend-exclude = ["migrations"]
+line-length = 79
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = "single"
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = '-p no:warnings'
+
+[tool.taskipy.tasks]
+check = 'ruff check'
+pre_format = 'ruff check --fix'
+format = 'ruff format'
+run = 'uvicorn app:app'
+pre_test = 'task check'
+test = 'pytest -s -x --cov=fastapi_zero -vv'
+post_test = 'coverage html'
