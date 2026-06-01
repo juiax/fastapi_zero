@@ -5,7 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi>=0.136.3",
+    "alembic>=1.18.4",
+    "fastapi[standard]>=0.136.3",
+    "pydantic-settings>=2.14.1",
+    "sqlalchemy>=2.0.50",
     "uvicorn>=0.48.0",
 ]
 
@@ -37,7 +40,7 @@ addopts = '-p no:warnings'
 check = 'ruff check'
 pre_format = 'ruff check --fix'
 format = 'ruff format'
-run = 'uvicorn app:app'
+run = 'uv run fastapi dev fastapi_zero/app.py'
 pre_test = 'task check'
 test = 'pytest -s -x --cov=fastapi_zero -vv'
 post_test = 'coverage html'
