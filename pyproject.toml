@@ -7,8 +7,11 @@ requires-python = ">=3.12"
 dependencies = [
     "alembic>=1.18.4",
     "fastapi[standard]>=0.136.3",
+    "pwdlib[argon2]>=0.3.0",
     "pydantic-settings>=2.14.1",
+    "pyjwt>=2.13.0",
     "sqlalchemy>=2.0.50",
+    "tzdata>=2026.2",
     "uvicorn>=0.48.0",
 ]
 
@@ -26,7 +29,7 @@ line-length = 79
 
 [tool.ruff.lint]
 preview = true
-select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+select = ['I', 'F', 'E', 'W', 'PL', 'PT', 'FAST']
 
 [tool.ruff.format]
 preview = true
@@ -40,7 +43,7 @@ addopts = '-p no:warnings'
 check = 'ruff check'
 pre_format = 'ruff check --fix'
 format = 'ruff format'
-run = 'uv run fastapi dev fastapi_zero/app.py'
+run = 'uvicorn fastapi_zero.app:app --reload'
 pre_test = 'task check'
 test = 'pytest -s -x --cov=fastapi_zero -vv'
 post_test = 'coverage html'
