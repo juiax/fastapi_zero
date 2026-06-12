@@ -4,21 +4,20 @@ from fastapi_zero.schemas import UserPublic
 
 
 def test_create_user(client):
-
     response = client.post(
         '/users/',
         json={
-            'username': 'juia',
-            'email': 'juia@email.com',
-            'password': 'juiasenhas',
+            'username': 'novo_usuario',
+            'email': 'novo@email.com',
+            'password': 'senha123',
         },
     )
 
     assert response.status_code == HTTPStatus.CREATED
     assert response.json() == {
         'id': 1,
-        'email': 'juia@email.com',
-        'username': 'juia',
+        'email': 'novo@email.com',
+        'username': 'novo_usuario',
     }
 
 
@@ -51,8 +50,11 @@ def test_update_user(client, user, token):
     }
 
 
-def test_delete_user(client, user):
-    response = client.delete('/users/1')
+def test_delete_user(client, user, token):
+    response = client.delete(
+        '/users/1',
+        headers={'Authorization': f'Bearer {token}'},
+    )
 
     assert response.status_code == HTTPStatus.OK
     assert response.json() == {'message': 'User deleted'}
@@ -88,7 +90,7 @@ def test_create_user_already_exists(client, user):
         '/users/',
         json={
             'username': user.username,
-            'email': 'alice@example.com',
+            'email': 'another@example.com',
             'password': 'secret',
         },
     )
@@ -100,7 +102,11 @@ def test_create_user_already_exists(client, user):
 def test_create_email_already_exists(client, user):
     response = client.post(
         '/users/',
-        json={'username': 'alice', 'email': user.email, 'password': 'secret'},
+        json={
+            'username': 'another_user',
+            'email': user.email,
+            'password': 'secret',
+        },
     )
 
     assert response.status_code == HTTPStatus.CONFLICT
