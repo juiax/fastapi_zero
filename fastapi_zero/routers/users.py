@@ -104,13 +104,23 @@ async def update_user(
 
 
 @router.delete('/{user_id}', status_code=HTTPStatus.OK, response_model=Message)
-async def delete_user(user_id: int, session: Session):
+async def delete_user(
+    user_id: int,
+    session: Session,
+    current_user: CurrentUser,
+):
     db_user = await session.scalar(select(User).where(User.id == user_id))
 
     if not db_user:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND,
             detail='User not found',
+        )
+
+    if current_user.id != user_id:
+        raise HTTPException(
+            status_code=HTTPStatus.FORBIDDEN,
+            detail='Not enough permissions',
         )
 
     await session.delete(db_user)
