@@ -16,6 +16,12 @@ jobs:
 
       - name: Instalar o uv
         run: pipx install uv
+      
+      - name: Debug arquivos
+        run: |
+            pwd
+            ls -la
+            find . -name "pyproject.toml"
 
       - name: Instalar dependências
         run: uv sync --all-groups
