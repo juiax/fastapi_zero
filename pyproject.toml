@@ -5,9 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "aiosqlite>=0.22.1",
     "alembic>=1.18.4",
     "fastapi[standard]>=0.136.3",
+    "psycopg[binary]>=3.3.4",
     "pwdlib[argon2]>=0.3.0",
     "pydantic-settings>=2.14.1",
     "pyjwt>=2.13.0",
@@ -25,6 +25,7 @@ dev = [
     "pytest-cov>=7.1.0",
     "ruff>=0.15.14",
     "taskipy>=1.14.1",
+    "testcontainers>=4.14.2",
 ]
 
 [tool.ruff]

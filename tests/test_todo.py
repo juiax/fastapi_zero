@@ -220,6 +220,4 @@ async def test_delete_other_user_todo(session, client, token, other_user):
     )
 
     assert response.status_code == HTTPStatus.NOT_FOUND
-    assert response.json() == {
-        'detail': 'Task not found.'
-    }
+    assert response.json() == {'detail': 'Task not found.'}
