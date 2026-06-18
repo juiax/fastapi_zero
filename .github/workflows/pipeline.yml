@@ -15,7 +15,7 @@ jobs:
           python-version: '3.13'
 
       - name: Instalar o uv
-        run: pipx install uv
+        run: astral-sh/setup-uv@v6
       
       - name: Debug arquivos
         run: |
@@ -24,7 +24,7 @@ jobs:
             find . -name "pyproject.toml"
 
       - name: Instalar dependências
-        run: uv sync --all-groups
+        run: uv sync --all-groups --frozen
 
       - name: Executar testes
         run: uv run task test
