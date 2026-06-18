@@ -26,6 +26,9 @@ jobs:
       - name: Instalar dependências
         run: uv sync --all-groups
 
+      - name: Executar linter(check)
+        run: uv run task check
+
       - name: Executar testes
         run: uv run task test
 
