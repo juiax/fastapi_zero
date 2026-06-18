@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do código
+      - name: Checkout do código #copia os arquivos do repositório para o ambiente de execução do workflow
         uses: actions/checkout@v4  
 
       - name: Instalar o python
@@ -28,3 +28,9 @@ jobs:
 
       - name: Executar testes
         run: uv run task test
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      ALGORITHM: ${{ secrets.ALGORITHM }}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
